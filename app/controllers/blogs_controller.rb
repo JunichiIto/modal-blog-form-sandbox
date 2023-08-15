@@ -25,6 +25,7 @@ class BlogsController < ApplicationController
         format.json { render :show, status: :created, location: @blog }
         format.turbo_stream {
           @blogs = Blog.order(id: :desc)
+          @notice = "Blog was successfully created."
           render 'result'
         }
       else
@@ -42,6 +43,7 @@ class BlogsController < ApplicationController
         format.json { render :show, status: :ok, location: @blog }
         format.turbo_stream {
           @blogs = Blog.order(id: :desc)
+          @notice = "Blog was successfully updated."
           render 'result'
         }
       else
