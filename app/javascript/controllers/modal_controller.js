@@ -5,20 +5,20 @@ export default class extends Controller {
   static targets = ['modal'];
 
   connect() {
-    this.myModal = new Modal(this.modalTarget);
+    this.modal = new Modal(this.modalTarget);
   }
 
   disconnect() {
-    this.myModal.dispose();
+    this.modal.dispose();
   }
 
   show() {
-    this.myModal.show();
+    this.modal.show();
   }
 
   hide(e) {
-    if (e.detail.success && e.detail.formSubmission.submitter) {
-      this.myModal.hide();
+    if (e.detail.success) {
+      this.modal.hide();
     }
   }
 }
