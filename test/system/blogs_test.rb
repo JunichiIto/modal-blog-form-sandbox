@@ -5,6 +5,11 @@ class BlogsTest < ApplicationSystemTestCase
     find("trix-editor").set(text)
   end
 
+  def dismiss_notice
+    find('.btn-close').click
+    assert_no_selector '.alert'
+  end
+
   def assert_blogs(expected_blogs)
     actual_blogs = all('#blogs > div')
     assert_equal expected_blogs.size, actual_blogs.size
@@ -18,6 +23,10 @@ class BlogsTest < ApplicationSystemTestCase
     end
   end
 
+  def wait_for_turbo
+    sleep 0.5
+  end
+
   test "CRUD" do
     visit blogs_url
     assert_selector "h1", text: "Blogs"
@@ -28,6 +37,7 @@ class BlogsTest < ApplicationSystemTestCase
     # Create
     click_link 'New blog'
     assert_selector 'h1', text: 'New blog'
+    wait_for_turbo
     # validation error
     fill_in 'Title', with: ' '
     click_button 'Create Blog'
@@ -36,8 +46,9 @@ class BlogsTest < ApplicationSystemTestCase
     fill_in 'Title', with: 'Hello'
     fill_in_blog_content 'World!'
     click_button 'Create Blog'
-    assert_no_selector 'h1', text: 'New blog'
+    assert_no_selector '.modal'
     assert_text 'Blog was successfully created.'
+    dismiss_notice
     assert_blogs([
                    { title: 'Hello', content: 'World!' },
                    { title: 'My first blog', content: 'Hi there!' },
@@ -46,6 +57,7 @@ class BlogsTest < ApplicationSystemTestCase
     # Update
     click_link 'Hello'
     assert_selector 'h1', text: 'Editing blog'
+    wait_for_turbo
     # validation error
     fill_in 'Title', with: ' '
     click_button 'Update Blog'
@@ -54,8 +66,9 @@ class BlogsTest < ApplicationSystemTestCase
     fill_in 'Title', with: 'My Turbo'
     fill_in_blog_content 'Turbo is fun!'
     click_button 'Update Blog'
-    assert_no_selector 'h1', text: 'Editing blog'
+    assert_no_selector '.modal'
     assert_text 'Blog was successfully updated.'
+    dismiss_notice
     assert_blogs([
                    { title: 'My Turbo', content: 'Turbo is fun!' },
                    { title: 'My first blog', content: 'Hi there!' },
@@ -64,8 +77,11 @@ class BlogsTest < ApplicationSystemTestCase
     # Delete
     click_link 'My Turbo'
     assert_selector 'h1', text: 'Editing blog'
+    wait_for_turbo
     find('.delete-button').click
+    assert_no_selector '.modal'
     assert_text 'Blog was successfully destroyed.'
+    dismiss_notice
     assert_blogs([
                    { title: 'My first blog', content: 'Hi there!' },
                  ])
