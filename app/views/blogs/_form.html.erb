@@ -9,3 +9,9 @@
   <%= f.rich_text_area :content %>
   <%= f.submit %>
 <% end %>
+
+<% if blog.persisted? %>
+  <%= button_to blog, method: :delete, class: 'delete-button' do %>
+    <i class="bi bi-trash"></i>
+  <% end %>
+<% end %>

@@ -60,6 +60,11 @@ class BlogsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to blogs_url, notice: "Blog was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream {
+        @blogs = Blog.order(id: :desc)
+        @notice = "Blog was successfully destroyed."
+        render 'result'
+      }
     end
   end
 
