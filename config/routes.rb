@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  resources :blogs
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :blogs, only: %i[index new create edit update destroy]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root "blogs#index"
 end

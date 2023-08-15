@@ -1,12 +1,6 @@
 <div id="<%= dom_id blog %>">
-  <p>
-    <strong>Title:</strong>
-    <%= blog.title %>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
-    <%= blog.content %>
-  </p>
-
+  <h2>
+    <%= link_to blog.title, [:edit, blog] %>
+  </h2>
+  <%= simple_format blog.content %>
 </div>
