@@ -1,14 +1,21 @@
 <div class="header">
   <h1>Blogs</h1>
 
-  <%= link_to "New blog", new_blog_path, class: 'new-link' %>
+  <%= link_to "New blog", new_blog_path, class: 'new-link', data: { turbo_frame: 'blog_form' } %>
 </div>
 
-<div id="blogs">
-  <% @blogs.each_with_index do |blog, i| %>
-    <% unless i.zero? %>
-      <hr>
-    <% end %>
-    <%= render blog %>
-  <% end %>
+<%= render 'blogs', blogs: @blogs %>
+
+<div data-controller="modal"
+     data-action="turbo:frame-load->modal#show turbo:submit-end->modal#hide">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-modal-target="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <%= turbo_frame_tag "blog_form", autoscroll: true, data: { autoscroll_behavior: 'start' } do %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
