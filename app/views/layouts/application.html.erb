@@ -12,7 +12,9 @@
 
   <body>
     <div class="p-3 container">
-      <div id="notice"></div>
+      <div id="flash">
+        <%= render "flash" %>
+      </div>
       <%= yield %>
     </div>
   </body>

@@ -25,7 +25,7 @@ class BlogsController < ApplicationController
         format.json { render :show, status: :created, location: @blog }
         format.turbo_stream {
           @blogs = Blog.order(id: :desc)
-          @notice = "Blog was successfully created."
+          flash.now.notice = "Blog was successfully created."
           render 'result'
         }
       else
@@ -43,7 +43,7 @@ class BlogsController < ApplicationController
         format.json { render :show, status: :ok, location: @blog }
         format.turbo_stream {
           @blogs = Blog.order(id: :desc)
-          @notice = "Blog was successfully updated."
+          flash.now.notice = "Blog was successfully updated."
           render 'result'
         }
       else
@@ -62,7 +62,7 @@ class BlogsController < ApplicationController
       format.json { head :no_content }
       format.turbo_stream {
         @blogs = Blog.order(id: :desc)
-        @notice = "Blog was successfully destroyed."
+        flash.now.notice = "Blog was successfully destroyed."
         render 'result'
       }
     end
