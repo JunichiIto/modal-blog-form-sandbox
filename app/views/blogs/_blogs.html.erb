@@ -1,8 +1,5 @@
 <div id="blogs">
-  <% @blogs.each_with_index do |blog, i| %>
-    <% unless i.zero? %>
-      <hr>
-    <% end %>
+  <% @blogs.each do |blog| %>
     <%= render blog %>
   <% end %>
 </div>
