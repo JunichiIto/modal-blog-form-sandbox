@@ -1,20 +1,19 @@
-import { Controller } from '@hotwired/stimulus';
-import { Modal } from 'bootstrap';
+import { Controller } from "@hotwired/stimulus"
+import { Modal } from "bootstrap"
 
 export default class extends Controller {
-  static targets = ['modal'];
-
   connect() {
-    this.modal = new Modal(this.modalTarget);
+    this.modal = new Modal(this.element)
+    this.modal.show()
   }
 
-  show() {
-    this.modal.show();
+  disconnect() {
+    this.modal.dispose();
   }
 
-  hide(e) {
-    if (e.detail.success) {
-      this.modal.hide();
+  close(event) {
+    if (event.detail.success) {
+      this.modal.hide()
     }
   }
 }

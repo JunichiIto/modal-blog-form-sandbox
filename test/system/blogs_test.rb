@@ -43,7 +43,7 @@ class BlogsTest < ApplicationSystemTestCase
 
     # Create
     click_link 'New blog'
-    assert_selector 'h1', text: 'New blog'
+    assert_selector '.modal-title', text: 'New blog'
     wait_for_turbo
     # validation error
     fill_in 'Title', with: ' '
@@ -62,7 +62,7 @@ class BlogsTest < ApplicationSystemTestCase
 
     # Update
     click_link 'Hello'
-    assert_selector 'h1', text: 'Editing blog'
+    assert_selector '.modal-title', text: 'Editing blog'
     wait_for_turbo
     # validation error
     fill_in 'Title', with: ' '
@@ -81,7 +81,7 @@ class BlogsTest < ApplicationSystemTestCase
 
     # Delete
     click_link 'My Turbo'
-    assert_selector 'h1', text: 'Editing blog'
+    assert_selector '.modal-title', text: 'Editing blog'
     wait_for_turbo
     find('.delete-button').click
     assert_no_selector '.modal'

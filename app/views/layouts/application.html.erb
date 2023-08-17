@@ -14,7 +14,7 @@
     <div class="p-3 container">
       <%= yield %>
     </div>
-    <%= render 'application/modal' %>
+    <%= turbo_frame_tag "modal" %>
     <div id="flashes" class="position-fixed top-0 end-0" style="margin: 0.75rem"></div>
   </body>
 </html>
