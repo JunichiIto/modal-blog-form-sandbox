@@ -8,10 +8,6 @@ export default class extends Controller {
     this.modal = new Modal(this.modalTarget);
   }
 
-  disconnect() {
-    this.modal.dispose();
-  }
-
   show() {
     this.modal.show();
   }
