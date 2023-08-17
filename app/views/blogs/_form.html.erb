@@ -1,8 +1,4 @@
-<% if blog.new_record? %>
-  <h1>New blog</h1>
-<% else %>
-  <h1>Editing blog</h1>
-<% end %>
+<h1><%= title %></h1>
 
 <%= bootstrap_form_for(blog) do |f| %>
   <%= f.text_field :title %>
