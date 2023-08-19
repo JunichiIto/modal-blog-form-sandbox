@@ -1,4 +1,4 @@
-<%= turbo_frame_tag blog do %>
+<%= turbo_frame_tag dom_id(blog, :form) do %>
   <%= bootstrap_form_with(model: blog) do |f| %>
     <%= f.text_field :title %>
     <%= f.rich_text_area :content %>
