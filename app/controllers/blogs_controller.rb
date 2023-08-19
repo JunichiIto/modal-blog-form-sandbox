@@ -23,7 +23,10 @@ class BlogsController < ApplicationController
       if @blog.save
         format.html { redirect_to blogs_url, notice: "Blog was successfully created." }
         format.json { render :show, status: :created, location: @blog }
-        format.turbo_stream { flash.now.notice = "Blog was successfully created." }
+        format.turbo_stream {
+          @blog.broadcast_prepend_to("blogs")
+          flash.now.notice = "Blog was successfully created."
+        }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @blog.errors, status: :unprocessable_entity }
@@ -37,7 +40,10 @@ class BlogsController < ApplicationController
       if @blog.update(blog_params)
         format.html { redirect_to blogs_url, notice: "Blog was successfully updated." }
         format.json { render :show, status: :ok, location: @blog }
-        format.turbo_stream { flash.now.notice = "Blog was successfully updated." }
+        format.turbo_stream {
+          @blog.broadcast_replace_to("blogs")
+          flash.now.notice = "Blog was successfully updated."
+        }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @blog.errors, status: :unprocessable_entity }
@@ -52,7 +58,10 @@ class BlogsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to blogs_url, notice: "Blog was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now.notice = "Blog was successfully destroyed." }
+      format.turbo_stream {
+        @blog.broadcast_remove_to("blogs")
+        flash.now.notice = "Blog was successfully destroyed."
+      }
     end
   end
 
